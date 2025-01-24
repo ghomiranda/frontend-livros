@@ -1,0 +1,95 @@
+<div class="container mt-5">
+  <h2>{{ isEditMode ? 'Editar Livro' : 'Novo Livro' }}</h2>
+
+  <form [formGroup]="livroForm" (ngSubmit)="salvar()">
+    <div class="form-group mb-3">
+      <label for="titulo">Título</label>
+      <input
+        id="titulo"
+        type="text"
+        class="form-control"
+        formControlName="titulo"
+        placeholder="Informe o título do livro"
+      />
+      <div *ngIf="livroForm.get('titulo')?.invalid && livroForm.get('titulo')?.touched" class="text-danger">
+        Título é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="editora">Editora</label>
+      <input
+        id="editora"
+        type="text"
+        class="form-control"
+        formControlName="editora"
+        placeholder="Informe a editora"
+      />
+      <div *ngIf="livroForm.get('editora')?.invalid && livroForm.get('editora')?.touched" class="text-danger">
+        Editora é obrigatória.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="edicao">Edição</label>
+      <input
+        id="edicao"
+        type="number"
+        class="form-control"
+        formControlName="edicao"
+        placeholder="Informe o número da edição"
+      />
+      <div *ngIf="livroForm.get('edicao')?.invalid && livroForm.get('edicao')?.touched" class="text-danger">
+        Edição é obrigatória e deve ser um número maior que 0.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="anoPublicacao">Ano de Publicação</label>
+      <input
+        id="anoPublicacao"
+        type="text"
+        class="form-control"
+        formControlName="anoPublicacao"
+        placeholder="Informe o ano de publicação (ex: 2023)"
+      />
+      <div *ngIf="livroForm.get('anoPublicacao')?.invalid && livroForm.get('anoPublicacao')?.touched" class="text-danger">
+        Ano de publicação é obrigatório e deve ter 4 dígitos.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="valor">Valor</label>
+      <input
+        id="valor"
+        type="text"
+        class="form-control"
+        formControlName="valor"
+        placeholder="Informe o valor do livro (R$)"
+        (input)="formatarValor($event)"
+      />
+      <div *ngIf="livroForm.get('valor')?.invalid && livroForm.get('valor')?.touched" class="text-danger">
+        Valor é obrigatório e deve ser maior ou igual a 0.
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="autores">Autores</label>
+      <select id="autores" class="form-control" formControlName="autores" multiple>
+        <option *ngFor="let autor of autores" [value]="autor.codau">{{ autor.nome }}</option>
+      </select>
+    </div>
+    
+    <div class="form-group mb-3">
+      <label for="assuntos">Assuntos</label>
+      <select id="assuntos" class="form-control" formControlName="assuntos" multiple>
+        <option *ngFor="let assunto of assuntos" [value]="assunto.codas">{{ assunto.descricao }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="livroForm.invalid">
+      {{ isEditMode ? 'Salvar Alterações' : 'Adicionar Livro' }}
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

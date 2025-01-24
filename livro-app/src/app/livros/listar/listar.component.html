@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <h2>Lista de Livros</h2>
+    <div class="d-flex justify-content-between mb-3">
+      <a routerLink="/livros/novo" class="btn btn-primary">Novo Livro</a>
+      <button class="btn btn-primary" (click)="downloadRelatorio()">
+        Baixar Relatório PDF
+      </button>
+    </div>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Editora</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livro of livros">
+          <td>{{ livro.codli }}</td>
+          <td>{{ livro.titulo }}</td>
+          <td>{{ livro.editora }}</td>
+          <td>
+            <a [routerLink]="['/livros/editar', livro.codli]" class="btn btn-warning btn-sm">Editar</a>
+            <button class="btn btn-danger btn-sm ms-2" (click)="deletarLivro(livro.codli)">Deletar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="livros.length === 0" class="text-center mt-4">
+      <p class="text-muted">Nenhum livro encontrado.</p>
+    </div>
+  </div>

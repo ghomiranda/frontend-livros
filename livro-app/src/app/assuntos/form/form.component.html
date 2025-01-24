@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h2>{{ isEditMode ? 'Editar Assunto' : 'Novo Assunto' }}</h2>
+  
+    <form [formGroup]="assuntoForm" (ngSubmit)="salvar()">
+      <div class="form-group mb-3">
+        <label for="descricao">Descrição</label>
+        <input
+          id="descricao"
+          type="text"
+          class="form-control"
+          formControlName="descricao"
+          placeholder="Informe a descrição do assunto"
+        />
+        <div *ngIf="assuntoForm.get('descricao')?.invalid && assuntoForm.get('descricao')?.touched" class="text-danger">
+          Descrição é obrigatória.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="assuntoForm.invalid">
+        {{ isEditMode ? 'Salvar Alterações' : 'Adicionar Assunto' }}
+      </button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+    </form>
+  </div>

@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h2>{{ isEditMode ? 'Editar Autor' : 'Novo Autor' }}</h2>
+  
+    <form [formGroup]="autorForm" (ngSubmit)="salvar()">
+      <div class="form-group mb-3">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          class="form-control"
+          formControlName="nome"
+          placeholder="Informe o nome do autor"
+        />
+        <div *ngIf="autorForm.get('nome')?.invalid && autorForm.get('nome')?.touched" class="text-danger">
+          Nome é obrigatório.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="autorForm.invalid">
+        {{ isEditMode ? 'Salvar Alterações' : 'Adicionar Autor' }}
+      </button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+    </form>
+  </div>
